@@ -13,9 +13,7 @@ const Login = () => {
 
    const {loading,setLoading} = useContext(MyContext)
 
-   const navigate = useNavigate(
-
-   )
+   const navigate = useNavigate()
     const signin = async ()=>{
             setLoading(true)
 

@@ -29,7 +29,7 @@ export function MyState({children}){
     title:null,
     price:null,
     imageUrl:null,
-    cartegory:null,
+    category:null,
     description:null,
     time:Timestamp.now(),
     date: new Date().toLocaleString(
@@ -52,15 +52,21 @@ export function MyState({children}){
     setLoading(true)
 
     try {
-        const productRef = await addDoc(collection(fireDB,"products",{products}))
+        // const productRef = await addDoc(collection(fireDB,"products",{products}))
+        const productRef = await addDoc(collection(fireDB,"products"),{products})
          toast.success("Product Add successfully")
+        
+         setTimeout(() => {
+         window.location.href="/dashboard"
+            
+         }, 800);
          getProductData()
          setLoading(false)
         
     } catch (error) {
          toast.error("Product Not Added")
 
-        console.log(error)
+        console.log(error.message)
          setLoading(false)
 
     }
