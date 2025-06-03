@@ -1,6 +1,6 @@
 import { Fragment, useContext, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { BsFillCloudSunFill } from 'react-icons/bs'
 import { FiSun } from 'react-icons/fi'
 
@@ -10,8 +10,18 @@ import MyContext from '../../context/data/myContext'
 const Navbar = () => {
 const [open,setOpen] = useState('false')
   const {mode,toggleMode} = useContext(MyContext)
+  const user = JSON.parse(localStorage.getItem('user'))
+
+  const navigate = useNavigate()
 
 
+  const logout = ()=>{
+    localStorage.clear('user')
+navigate("/login")
+
+    console.log(user)
+  }
+// console.log(user.user.email)
   return (
     <div>
          <div className="bg-white sticky top-0 z-50  "  >
@@ -63,15 +73,18 @@ const [open,setOpen] = useState('false')
                   </div>
 
                   <div className="flow-root">
-                    <Link to={'/dashboard'} className="-m-2 block p-2 font-medium text-gray-900" style={{ color: mode === 'dark' ? 'white' : '', }}>
+                      {user?.user?.email === "manthankathiriya808@gmail.com" ?    <Link to={'/dashboard'} className="-m-2 block p-2 font-medium text-gray-900" style={{ color: mode === 'dark' ? 'white' : '', }}>
                       admin
-                    </Link>
+                    </Link> : ""}
                   </div>
 
                   <div className="flow-root">
-                    <a className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer" style={{ color: mode === 'dark' ? 'white' : '', }}>
-                      Logout
-                    </a>
+                                 {user ?    <a className="text-sm font-medium text-gray-700 cursor-pointer  " onClick={logout} style={{ color: mode === 'dark' ? 'white' : '', }}>
+                    Logout
+                  </a> : 
+                   <Link to={'/signup'} className="text-sm font-medium text-gray-700 cursor-pointer  " style={{ color: mode === 'dark' ? 'white' : '', }}>
+                    Signup
+                  </Link>}
                   </div>
                   <div className="flow-root">
                     <Link to={'/'} className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer">
@@ -139,13 +152,16 @@ const [open,setOpen] = useState('false')
                   <Link to={'/order'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     Order
                   </Link>
-                  <Link to={'/dashboard'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
+                {user?.user?.email === "manthankathiriya808@gmail.com" ?   <Link to={'/dashboard'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     Admin
-                  </Link>
+                  </Link> : ""}
 
-                  <a className="text-sm font-medium text-gray-700 cursor-pointer  " style={{ color: mode === 'dark' ? 'white' : '', }}>
+               {user ?    <a className="text-sm font-medium text-gray-700 cursor-pointer  " onClick={logout} style={{ color: mode === 'dark' ? 'white' : '', }}>
                     Logout
-                  </a>
+                  </a> : 
+                   <Link to={'/signup'} className="text-sm font-medium text-gray-700 cursor-pointer  " style={{ color: mode === 'dark' ? 'white' : '', }}>
+                    Signup
+                  </Link>}
                 </div>
 
                 <div className="hidden lg:ml-8 lg:flex">

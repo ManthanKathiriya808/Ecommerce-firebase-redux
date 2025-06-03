@@ -6,20 +6,32 @@ import Filter from '../../src/components/filter/Filter'
 import ProductCArd from '../../src/components/productCard/ProductCArd'
 import Track from '../../src/components/track/Track'
 import Testimonial from '../../src/components/testimonial/Testimonial'
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCart, deleteFromCart } from '../../src/redux/cartSlice'
 
 
 const Home = () => {
 
-   
+
+   const dispatch = useDispatch()
+   const cardItem = useSelector((state) => state.cart)
+
+console.log(cardItem)
+
 
   return (
     <Layout>
+      <div className='flex gap-5 justify-center'>
+        <button className="bg-gray-400 p-5" onClick={()=> dispatch(addToCart("shirt"))}>add</button>
+        <button className="bg-gray-400 p-5" onClick={()=>dispatch(deleteFromCart("shirt"))}>DElete</button>
+      </div>
     <HeroSection/>
     <Filter/>
     <ProductCArd/>
     <Track/>
     <Testimonial/>
     </Layout>
+    
   )
 }
 
