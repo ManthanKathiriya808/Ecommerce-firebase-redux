@@ -5,7 +5,7 @@ import { addToCart } from '../../redux/cartSlice'
 import { toast } from 'react-toastify'
 
 const ProductCArd = () => {
-    const {mode,product} = useContext(MyContext)
+    const {mode,product,searchkey,filterType,filterPrice} = useContext(MyContext)
 
     const dispatch = useDispatch()
     const cartItem = useSelector((state)=> state.cart)
@@ -32,7 +32,7 @@ console.log(cartItem)
                 <div className="flex flex-wrap -m-4">
                    
                    {
-                    product?.map((item,index)=>{
+                    product.filter((ele)=> ele.title.toLowerCase().includes(searchkey)).filter((ele)=> ele.category.toLowerCase().includes(filterType)).filter((ele)=> ele.price.includes(filterPrice))?.map((item,index)=>{
 
                         const { title, price, imageUrl } = item;
 

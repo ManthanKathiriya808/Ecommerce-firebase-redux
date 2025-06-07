@@ -21,10 +21,7 @@ console.log(cardItem)
 
   return (
     <Layout>
-      <div className='flex gap-5 justify-center'>
-        <button className="bg-gray-400 p-5" onClick={()=> dispatch(addToCart("shirt"))}>add</button>
-        <button className="bg-gray-400 p-5" onClick={()=>dispatch(deleteFromCart("shirt"))}>DElete</button>
-      </div>
+     
     <HeroSection/>
     <Filter/>
     <ProductCArd/>

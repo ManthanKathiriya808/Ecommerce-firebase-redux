@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MyContext from "./MyContext";
-import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc, Timestamp } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, orderBy, query, setDoc, Timestamp } from "firebase/firestore";
 import { fireDB } from "../../firebase/FirebaseConfig";
 import { toast } from "react-toastify";
 
@@ -101,9 +101,7 @@ export function MyState({children}){
         }
     }
 
-    useEffect(()=>{
-        getProductData()
-    },[])
+
 
 
     const editHandle = (item) => {
@@ -146,9 +144,60 @@ setTimeout(() => {
     }
 
 
+    const [order,setOrder] = useState([])
 
+    const getOrderData = async ()=>{
+        setLoading(true)
+
+        try {
+            const result = await getDocs(collection(fireDB,"orders"))
+            const orderArray = []
+            result.forEach((ele)=>{
+                orderArray.push(ele.data())
+                setLoading(false)
+
+            })
+            setOrder(orderArray)
+            setLoading(false)
+        } catch (error) {
+            console.log(error)
+            setLoading(false)
+        }
+    }
+
+
+    const [user,setUser]= useState([])
+
+    const getUserData =async ()=>{
+
+        setLoading(true)
+        try {
+            const result = await getDocs(collection(fireDB,"users"))
+            const userArray = []
+            result.forEach((ele)=>{
+                userArray.push(ele.data())
+            })
+            // console.log(userArray)
+            setUser(userArray)
+            setLoading(false)
+        } catch (error) {
+            console.log(error)
+            setLoading(false)
+        }
+
+    }
+    useEffect(()=>{
+        getProductData()
+        getOrderData()
+        getUserData()
+    },[])
+
+
+    const [ searchkey,setSearchkey] = useState("")
+    const [filterType,setFilterType] = useState("")
+    const [filterPrice,setFilterPrice] = useState("")
     return(
-        <MyContext.Provider value={{mode,toggleMode,loading,setLoading,products,setProducts,addProduct, product,setProduct,deleteProduct,updateProduct,editHandle}}>
+        <MyContext.Provider value={{mode,toggleMode,loading,setLoading,products,setProducts,addProduct, product,setProduct,deleteProduct,updateProduct,editHandle,order,user,searchkey,setSearchkey,filterType,setFilterType,filterPrice,setFilterPrice}}>
             {children}
         </MyContext.Provider>
     )
