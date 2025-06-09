@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Layout from '../../src/components/layout/Layout'
-import MyContext from '../../src/context/data/MyContext'
+import MyContext from '../../src/context/data/myContext'
 import HeroSection from '../../src/components/heroSection/HeroSection'
 import Filter from '../../src/components/filter/Filter'
 import ProductCArd from '../../src/components/productCard/ProductCArd'

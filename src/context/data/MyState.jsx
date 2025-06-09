@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MyContext from "./MyContext";
+import MyContext from "./myContext";
 import { addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, orderBy, query, setDoc, Timestamp } from "firebase/firestore";
 import { fireDB } from "../../firebase/FirebaseConfig";
 import { toast } from "react-toastify";
